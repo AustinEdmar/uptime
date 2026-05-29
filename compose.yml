@@ -5,7 +5,7 @@ services:
   pgsql:
     container_name: pgsql-uptime
     image: postgres:15
-    
+
     restart: always
     tty: true
     ports:
@@ -13,14 +13,13 @@ services:
     volumes:
       - ./pgsql/data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: uptime        # Nome do banco de dados
-      POSTGRES_USER: austin            # Nome do usuário adicional
-      POSTGRES_PASSWORD: 923.Eddy      # Senha do usuário adicional
+      POSTGRES_DB: px # Nome do banco de dados
+      POSTGRES_USER: austin # Nome do usuário adicional
+      POSTGRES_PASSWORD: 923.Eddy # Senha do usuário adicional
       SERVICE_TAGS: dev
       SERVICE_NAME: postgres
     networks:
       - uptime
-  
 
   mailhog:
     image: mailhog/mailhog:latest

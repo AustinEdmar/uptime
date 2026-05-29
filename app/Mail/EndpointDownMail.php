@@ -20,7 +20,7 @@ class EndpointDownMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->endpoint->site->name . ' - Endpoint Down',
+            subject: $this->endpoint->site->domain . ' - Esta Down',
         );
     }
 

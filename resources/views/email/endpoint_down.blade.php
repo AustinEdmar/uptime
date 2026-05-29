@@ -1,5 +1,5 @@
 @component('mail::message')
-# {{ $endpoint->site->name }} - Endpoint Down
+# Falha ao monitorar o {{ $endpoint->site->domain }}
 
 O endpoint **{{ $endpoint->location }}** está fora do ar.
 

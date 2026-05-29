@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,7 +14,9 @@ return new class extends Migration
         Schema::create('endpoints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('site_id')->constrained()->onDelete('cascade');
-            $table->string('location'); 
+            $table->string('location');
+            $table->boolean('is_down')->default(false);
+            $table->timestamp('last_downtime_notification_sent_at')->nullable();
             $table->unsignedBigInteger('frequency')->default(EndpointFrequency::FIVE_MINUTES->value);
             $table->timestamp('next_check'); // now + frequency
             $table->timestamps();
