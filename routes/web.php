@@ -6,6 +6,7 @@ use App\Http\Controllers\EndpointDestroyController;
 use App\Http\Controllers\EndpointUpdateController;
 use App\Http\Controllers\EndpointIndexController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteDeleteController;
 use App\Http\Controllers\SiteStoreController;
 use App\Http\Controllers\SiteNotificationsEmailStoreController;
 use App\Http\Controllers\SiteNotificationsEmailDestroyController;
@@ -17,12 +18,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    if (!Auth::check()) {
+        return redirect()->route('login');
+    }
+
+    return redirect()->route('dashboard');
 });
 
 Route::get('/mail-test', function () {
@@ -37,6 +37,9 @@ Route::get('/dashboard/{site?}', DashboardController::class)->middleware(['auth'
 Route::post('/sites', SiteStoreController::class)->middleware(['auth', 'verified']);
 
 Route::post('/sites/{site}/endpoints', EndpointStoreController::class)->middleware(['auth', 'verified']);
+
+
+Route::delete('/sites/{site}', SiteDeleteController::class)->middleware(['auth', 'verified']);
 
 Route::patch('/endpoints/{endpoint}', EndpointUpdateController::class)->middleware(['auth', 'verified']);
 
@@ -55,4 +58,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

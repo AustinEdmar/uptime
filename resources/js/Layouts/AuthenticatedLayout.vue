@@ -52,9 +52,13 @@ defineProps({
         <div class="flex items-center gap-6">
             <!-- Logo -->
             <Link :href="route('dashboard')" class="flex shrink-0 items-center">
-                <ApplicationLogo
-                    class="block h-9 w-auto fill-current text-white"
-                />
+               
+
+                 <img
+            :src="'/storage/sme.png'"
+            alt="Logo"
+            class="w-auto h-12 object-contain animate-fade-in"
+        />
             </Link>
 
 
@@ -66,7 +70,7 @@ defineProps({
 
             <!-- Título -->
             <h2 class="text-xl font-semibold leading-tight text-white">
-                {{ site.data.domain }}
+                {{ site?.data.domain }}
             </h2>
            </div>
         </div>

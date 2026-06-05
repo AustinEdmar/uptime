@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CheckResource;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Site;
@@ -14,13 +15,17 @@ class EndpointIndexController extends Controller
 {
     public function __invoke(Request $request, Endpoint $endpoint)
     {
-       /*  if (! Gate::allows('view-endpoint', $endpoint)) {
-                abort(403);  
-            } */
+        /*  if (! Gate::allows('view-endpoint', $endpoint)) {
+                 abort(403);  
+             } */
 
-       return Inertia::render('Endpoint', [
-         
-             'endpoint' => EndpointResource::make($endpoint)
-       ]);
+        $checks = $endpoint->checks()
+            ->latest()
+            ->paginate(10);
+
+        return Inertia::render('Endpoint', [
+            'endpoint' => EndpointResource::make($endpoint),
+            'checks' => CheckResource::collection($checks),
+        ]);
     }
 }

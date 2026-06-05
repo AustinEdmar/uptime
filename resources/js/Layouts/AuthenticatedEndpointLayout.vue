@@ -20,7 +20,8 @@ defineProps({
 <template >
     <div>
         <div class="min-h-screen bg-indigo-50">
-          <div class="px-7 py-2">
+          <div class="mx-auto max-w-7xl px-7 py-2">
+          
               <nav
                 class="rounded-xl bg-gradient-to-r from-[#495AFF] to-[#0ACFFE] text-white shadow-sm"
             >
@@ -30,11 +31,15 @@ defineProps({
 
         <!-- ESQUERDA: Logo + Título -->
         <div class="flex items-center gap-6">
-            <!-- Logo -->
+             <!-- Logo -->
             <Link :href="route('dashboard')" class="flex shrink-0 items-center">
-                <ApplicationLogo
-                    class="block h-9 w-auto fill-current text-white"
-                />
+               
+
+                 <img
+            :src="'/storage/sme.png'"
+            alt="Logo"
+            class="w-auto h-12 object-contain animate-fade-in"
+        />
             </Link>
 
 

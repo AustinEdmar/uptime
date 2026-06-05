@@ -35,7 +35,14 @@ const storeEndpoint = () => {
             endpointForm.reset();
         }
     });
-}  
+} 
+
+
+const deleteSite = () => {
+    if (window.confirm("Tens a certeza ?")){
+        router.delete(`/sites/${props.site.data.id}`)
+    }
+}
 
 let pollingInterval = null
 
@@ -74,6 +81,33 @@ onUnmounted(() => {
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+
+               <template v-if="!site">
+    <div class="flex flex-col items-center justify-center py-16 px-6 text-center">
+        
+        <!-- Imagem -->
+        <img
+            :src="'/storage/caixa.gif'"
+            alt="Sem sites"
+            class="w-64 h-64 object-contain mb-6 animate-fade-in"
+        />
+
+        <!-- Título -->
+        <h2 class="text-2xl font-bold text-gray-800">
+            Nenhum site criado
+        </h2>
+
+        <!-- Texto -->
+        <p class="mt-2 text-gray-500 max-w-md">
+            Ainda não tens nenhum Endereço criado. Cria o teu primeiro Endereço para Monitorar.
+        </p>
+
+       
+    </div>
+</template>
+
+                 <template v-else>
+
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">Novo Endpoint</h2>
               
 
@@ -114,6 +148,7 @@ onUnmounted(() => {
 
                  <div class="mt-8 flex flex-col">
                     <h2 class="flex items-center gap-2 font-semibold text-lg text-gray-800 leading-tight">
+    
     Actualmente monitorando
     (<span
         class="inline-flex items-center justify-center
@@ -168,7 +203,15 @@ onUnmounted(() => {
                 <div class="grid grid-cols-3 gap-12 mt-4">
                    <EmailNotifications :site="site" :notification_emails="site.data.notification_emails" />
                 </div>
+
+                 <div class="mt-6">
+            <button class="text-red-500 text-sm" v-on:click="deleteSite"> Deletar Site </button>
             </div>
+            </template>
+            </div>
+ 
+           
+
         </div> 
     </AuthenticatedLayout>
 </template>
