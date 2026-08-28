@@ -1,14 +1,17 @@
 <template>
     <VDropdown distance="10">
-        
+
         <button class="flex items-center space-x-2 text-sm">
+        
                <span class="flex items-center gap-1 cursor-pointer">
-    <!-- Texto com gradiente -->
-    <span class="text-md font-bold font-medium text-white">
-        Seleccione o site
+    <!-- Ícone grande no lugar do texto -->
+    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 border border-white/20 backdrop-blur-md hover:bg-white/25 transition-colors">
+        <GlobeAltIcon class="w-6 h-6 text-white" />
+        
+        
     </span>
 
-    <!-- Seta azul (aproximada) -->
+    <!-- Seta -->
     <svg
         class="w-3 h-3 text-white"
         xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +75,7 @@
            
         >
          <PlusIcon class="h-4 w-4" color="white" />
-            Adicionar website
+            Adicionar Endereço
         </PrimaryButton>
     </li>
 </ul>
@@ -88,7 +91,7 @@
     overlay-class="bg-gradient-to-r from-gray-500 opacity-50" :esc-to-close="true"
     >
     
-            <h2 class="font-semibold text-lg text-gray-800 leading-tight">Criar novo site</h2>
+            <h2 class="font-semibold text-lg text-gray-800 leading-tight">Criar novo Endereço</h2>
 
             <form v-on:submit.prevent="createSite" class="overflow-hidden space-y-4">
 
@@ -96,7 +99,7 @@
 
                 <TextInput
                  v-model="siteForm.domain"
-                 id="domain" type="text"  class="block w-full h-9 text-sm text-gray-700" placeholder="ex: https://meusite.com"
+                 id="domain" type="text"  class="block w-full h-9 text-sm text-gray-700" placeholder="ex: https://meusite.com ou http://192.168.0.1"
                  :class="{ 'border-red-500': siteForm.errors.domain }"
                  />
 
@@ -151,6 +154,7 @@
     import PrimaryButton from './PrimaryButton.vue';
     import InputError from './InputError.vue';
     import { PlusIcon } from '@heroicons/vue/24/solid'
+    import { GlobeAltIcon } from '@heroicons/vue/24/outline'
     import { useForm } from '@inertiajs/vue3';
 
     const showNewSiteModal = ref(false);

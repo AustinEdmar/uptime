@@ -6,57 +6,90 @@ const props = defineProps({
         type: String,
         default: 'right',
     },
+
     width: {
         type: String,
         default: '48',
     },
+
+    placement: {
+        type: String,
+        default: 'bottom',
+    },
+
     contentClasses: {
         type: String,
         default: 'py-1 bg-white',
     },
 });
 
+const open = ref(false);
+
+const close = () => {
+    open.value = false;
+};
+
+const toggle = () => {
+    open.value = !open.value;
+};
+
 const closeOnEscape = (e) => {
-    if (open.value && e.key === 'Escape') {
-        open.value = false;
+    if (e.key === 'Escape') {
+        close();
     }
 };
 
-onMounted(() => document.addEventListener('keydown', closeOnEscape));
-onUnmounted(() => document.removeEventListener('keydown', closeOnEscape));
+onMounted(() => {
+    document.addEventListener('keydown', closeOnEscape);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('keydown', closeOnEscape);
+});
 
 const widthClass = computed(() => {
     return {
         48: 'w-48',
+        56: 'w-56',
     }[props.width.toString()];
 });
 
 const alignmentClasses = computed(() => {
     if (props.align === 'left') {
         return 'ltr:origin-top-left rtl:origin-top-right start-0';
-    } else if (props.align === 'right') {
-        return 'ltr:origin-top-right rtl:origin-top-left end-0';
-    } else {
-        return 'origin-top';
     }
+
+    if (props.align === 'right') {
+        return 'ltr:origin-top-right rtl:origin-top-left end-0';
+    }
+
+    return 'origin-top';
 });
 
-const open = ref(false);
+const placementClasses = computed(() => {
+    if (props.placement === 'top') {
+        return 'bottom-full mb-2';
+    }
+
+    return 'mt-2';
+});
 </script>
 
 <template>
     <div class="relative">
-        <div @click="open = !open">
+        <!-- Trigger -->
+        <div @click="toggle">
             <slot name="trigger" />
         </div>
 
-        <!-- Full Screen Dropdown Overlay -->
+        <!-- Overlay -->
         <div
-            v-show="open"
+            v-if="open"
             class="fixed inset-0 z-40"
-            @click="open = false"
+            @click="close"
         ></div>
 
+        <!-- Dropdown -->
         <Transition
             enter-active-class="transition ease-out duration-200"
             enter-from-class="opacity-0 scale-95"
@@ -66,11 +99,9 @@ const open = ref(false);
             leave-to-class="opacity-0 scale-95"
         >
             <div
-                v-show="open"
-                class="absolute z-50 mt-2 rounded-md shadow-lg"
-                :class="[widthClass, alignmentClasses]"
-                style="display: none"
-                @click="open = false"
+                v-if="open"
+                class="absolute z-50 rounded-md shadow-lg"
+                :class="[widthClass, alignmentClasses, placementClasses]"
             >
                 <div
                     class="rounded-md ring-1 ring-black ring-opacity-5"

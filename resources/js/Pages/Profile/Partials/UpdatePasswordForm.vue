@@ -37,12 +37,11 @@ const updatePassword = () => {
     <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900">
-                Update Password
+                Atualizar Password
             </h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay
-                secure.
+                Certifique-se de que sua conta está usando uma senha longa e aleatória para se manter segura.
             </p>
         </header>
 
@@ -66,7 +65,7 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel for="password" value="New Password" />
+                <InputLabel for="password" value="Nova Password" />
 
                 <TextInput
                     id="password"
@@ -83,7 +82,7 @@ const updatePassword = () => {
             <div>
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
+                    value="Confirmar Password"
                 />
 
                 <TextInput
@@ -101,7 +100,7 @@ const updatePassword = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton :disabled="form.processing">Salvar</PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -113,7 +112,7 @@ const updatePassword = () => {
                         v-if="form.recentlySuccessful"
                         class="text-sm text-gray-600"
                     >
-                        Saved.
+                        Salvo.
                     </p>
                 </Transition>
             </div>

@@ -20,7 +20,7 @@ import { Link } from '@inertiajs/vue3';
                 <Link href="/">
                     <img :src="'/storage/sme.png'" alt="Logo SME" class="mb-6 h-12 w-12 object-contain " />
                 </Link>
-                <h1 class="text-xl font-semibold text-white">SMI</h1>
+                <h1 class="text-xl font-semibold text-white">SYSMI</h1>
                 <p class="mt-2 text-sm leading-relaxed text-white/70">
                     Sistema de Monitoramento de Incidentes
                 </p>
